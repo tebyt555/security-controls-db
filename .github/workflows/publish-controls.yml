@@ -1,23 +1,23 @@
-  - name: Set up Python
+- name: Set up Python
     uses: actions/setup-python@v5
     with:
       python-version: '3.10'
       
-  - name: Install dependencies
+- name: Install dependencies
     run: pip install python-frontmatter
     
   # STREAMING_CHUNK: Compile Data and Publish
-  - name: Compile JSON Database
+- name: Compile JSON Database
     run: python scripts/compile.py
     
-  - name: Setup Pages
+- name: Setup Pages
     uses: actions/configure-pages@v4
     
-  - name: Upload artifact
+- name: Upload artifact
     uses: actions/upload-pages-artifact@v3
     with:
       path: 'dist/'
       
-  - name: Deploy to GitHub Pages
+- name: Deploy to GitHub Pages
     id: deployment
     uses: actions/deploy-pages@v4
