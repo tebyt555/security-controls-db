@@ -6,20 +6,16 @@
   - name: Install dependencies
     run: pip install python-frontmatter
     
+  # STREAMING_CHUNK: Compile Data and Publish
   - name: Compile JSON Database
     run: python scripts/compile.py
     
-  # Setup GitHub Pages
   - name: Setup Pages
     uses: actions/configure-pages@v4
     
-  # Upload the 'dist' directory as the Pages artifact
   - name: Upload artifact
     uses: actions/upload-pages-artifact@v3
     with:
       path: 'dist/'
       
-  # Deploy the artifact to GitHub Pages
   - name: Deploy to GitHub Pages
-    id: deployment
-    uses: actions/deploy-pages@v4
