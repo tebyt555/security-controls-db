@@ -1,0 +1,22 @@
+name: Validate Security Controls
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-frontmatter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: pip install python-frontmatter jsonschema pyyaml
+        
+      - name: Run Validation Script
+        run: python scripts/validate.py
