@@ -1,29 +1,25 @@
-name: Publish Controls Database
-on:
-  push:
-    branches: [ "main" ] # Only runs on merge to main
-
-jobs:
-  compile-and-store:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  - name: Set up Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: '3.10'
       
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: pip install python-frontmatter
-        
-      - name: Compile JSON Database
-        run: python scripts/compile.py
-        
-      - name: Upload JSON as GitHub Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: compiled-controls-db
-          path: dist/controls-db.json
-          retention-days: 30
+  - name: Install dependencies
+    run: pip install python-frontmatter
+    
+  - name: Compile JSON Database
+    run: python scripts/compile.py
+    
+  # Setup GitHub Pages
+  - name: Setup Pages
+    uses: actions/configure-pages@v4
+    
+  # Upload the 'dist' directory as the Pages artifact
+  - name: Upload artifact
+    uses: actions/upload-pages-artifact@v3
+    with:
+      path: 'dist/'
+      
+  # Deploy the artifact to GitHub Pages
+  - name: Deploy to GitHub Pages
+    id: deployment
+    uses: actions/deploy-pages@v4
